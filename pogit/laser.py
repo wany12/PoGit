@@ -3,8 +3,9 @@ import numpy as np
 from scipy.constants import c
 
 from .codelets.laser import LaserProfile
-from .codelets.fieldBackground import LaserAntenna, distance_3d, laser_profile_2d, laser_profile_3d
-
+from .codelets.fieldBackground import LaserAntenna
+from .codelets.fieldBackground import r2_2d, r2_3d
+from .codelets.fieldBackground import laser_profile_2d, laser_profile_3d
 
 class Laser:
     """
@@ -105,10 +106,10 @@ class Laser:
             params['ix_cntr'] = center_ij[0]
             params['iz_cntr'] = center_ij[1]
             if dim=='3d':
-               params['distance_3d'] = Template(distance_3d).render(**params)
+               params['r2'] = Template(r2_3d).render(**params)
                params['laser_profile'] = Template(laser_profile_3d).render(**params)
             elif dim=='2d':
-               params['distance_3d'] = " "
+               params['r2'] = Template(r2_2d).render(**params)
                params['laser_profile'] = Template(laser_profile_2d).render(**params)
             
         # Converting float and integer arguments to strings
